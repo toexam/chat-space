@@ -37,7 +37,7 @@
 ## messagesテーブル
 |Column|Type|Option|
 |------|----|------|
-|message_id|integer|null: false, foreign_key: true|
+|message_id|integer|null: false|
 |message|text|null: false|
 ### Association
 - belongs_to :group
