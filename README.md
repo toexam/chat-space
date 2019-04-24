@@ -2,7 +2,7 @@
 ## usersテーブル
 |Column|Type|Option|
 |------|----|------|
-|name|string|unique not null, add_index :users, :name|
+|name|string|null:false, add_index :users, :name|
 |mail|string|unique not null|
 ### Association
 - has_many :groups, through: :members
