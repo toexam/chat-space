@@ -51,8 +51,3 @@
 ### Association
 - belongs_to :user
 - belongs_to :message
-
-
-参考：
-[【Rails】中間テーブルの組み方]https://qiita.com/morikuma709/items/1e389ddcdfc1102ef3f4
-[【初心者・独学者向け】Ruby on Railsで中間テーブルを作成し、多対多を実現する]https://programming-beginner-zeroichi.jp/articles/25
