@@ -29,7 +29,8 @@
 |Column|Type|Option|
 |------|----|------|
 |id|integer|null: false, add_index :messages, :id|
-|message|text|null: false|
+|body|text|null: false|
+|image|string|null: false, add_index :messages, :image|
 ### Association
 - belongs_to :group
 - belongs_to :user
