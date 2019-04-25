@@ -11,7 +11,7 @@
 ## groupsテーブル
 |Column|Type|Option|
 |------|----|------|
-|group_name|integer|null:false, add_index :groups, :group_name,foreign_key: true|
+|group_name|integer|null:false, add_index :groups, :group_name, foreign_key: true|
 ### Association
 - has_many :users, through: :members
 - has_many :messages
@@ -29,7 +29,7 @@
 |Column|Type|Option|
 |------|----|------|
 |id|integer|null: false|
-|message|text|null: false|
+|message|text|null: false,add_index :messages, :id|
 ### Association
 - belongs_to :group
 - belongs_to :user
