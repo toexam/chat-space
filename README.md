@@ -11,7 +11,7 @@
 ## groupsテーブル
 |Column|Type|Option|
 |------|----|------|
-|group_name_id|integer|null:false, foreign_key: true|
+|group_name|integer|null:false, foreign_key: true|
 ### Association
 - has_many :users, through: :members
 - has_many :messages, through: :groups_messages
