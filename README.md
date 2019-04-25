@@ -28,8 +28,8 @@
 ## messagesテーブル
 |Column|Type|Option|
 |------|----|------|
-|id|integer|null: false|
-|message|text|null: false,add_index :messages, :id|
+|id|integer|null: false, add_index :messages, :id|
+|message|text|null: false|
 ### Association
 - belongs_to :group
 - belongs_to :user
