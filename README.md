@@ -11,10 +11,10 @@
 ## groupsテーブル
 |Column|Type|Option|
 |------|----|------|
-|group_name|integer|null:false, foreign_key: true|
+|group_name|integer|null:false, add_index :groups, :group_name,foreign_key: true|
 ### Association
 - has_many :users, through: :members
-- has_many :messages, through: :groups_messages
+- has_many :messages
 
 ## membersテーブル
 |Column|Type|Option|
@@ -24,15 +24,6 @@
 ### Association
 - belongs_to :group
 - belongs_to :user
-
-## Groups_messagesテーブル
-|Column|Type|Option|
-|------|----|------|
-|user_id|integer|null: false, foreign_key: true|
-|group_id|integer|null: false, foreign_key: true|
-### Association
-- belongs_to :group
-- belongs_to :message
 
 ## messagesテーブル
 |Column|Type|Option|
