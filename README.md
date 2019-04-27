@@ -1,24 +1,43 @@
-# README
+# chat-spaceのDB設計
+## usersテーブル
+|Column|Type|Option|
+|------|----|------|
+|id|integer|null: false, add_index :messages, :id|
+|name|string|null:false, add_index :users, :name|
+|mail|string|unique not null|
+### Association
+- has_many :groups, through: :members
+- has_many :messages
+- has_many :members
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## groupsテーブル
+|Column|Type|Option|
+|------|----|------|
+|id|integer|null: false, add_index :messages, :id|
+|group_name|text|null:false, add_index :groups, :group_name|
+### Association
+- has_many :users, through: :members
+- has_many :messages
+- has_many :members
 
-Things you may want to cover:
+## membersテーブル
+|Column|Type|Option|
+|------|----|------|
+|id|integer|null: false, add_index :messages, :id|
+|user_id|integer|null: false, foreign_key: true|
+|group_id|integer|null: false, foreign_key: true|
+### Association
+- belongs_to :group
+- belongs_to :user
+- belongs_to :member
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## messagesテーブル
+|Column|Type|Option|
+|------|----|------|
+|id|integer|null: false, add_index :messages, :id|
+|body|text|null: false|
+|image|string|null: false, add_index :messages, :image|
+### Association
+- belongs_to :group
+- belongs_to :user
+- belongs_to :member
