@@ -32,8 +32,8 @@
 ## messagesテーブル
 |Column|Type|Option|
 |------|----|------|
-|body|text|null: false|
-|image|string|null: false, add_index :messages, :image|
+|body|text|validates :body_or_image, presence: true|
+|image|string|validates :body_or_image, presence: true, add_index :messages, :image|
 ### Association
 - belongs_to :group
 - belongs_to :user
