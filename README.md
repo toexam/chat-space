@@ -2,7 +2,6 @@
 ## usersテーブル
 |Column|Type|Option|
 |------|----|------|
-|id|integer|null: false, add_index :messages, :id|
 |name|string|null:false, add_index :users, :name|
 |mail|string|unique not null|
 ### Association
@@ -13,7 +12,6 @@
 ## groupsテーブル
 |Column|Type|Option|
 |------|----|------|
-|id|integer|null: false, add_index :messages, :id|
 |group_name|text|null:false, add_index :groups, :group_name|
 ### Association
 - has_many :users, through: :members
@@ -23,7 +21,6 @@
 ## membersテーブル
 |Column|Type|Option|
 |------|----|------|
-|id|integer|null: false, add_index :messages, :id|
 |user_id|integer|null: false, foreign_key: true|
 |group_id|integer|null: false, foreign_key: true|
 ### Association
@@ -34,7 +31,6 @@
 ## messagesテーブル
 |Column|Type|Option|
 |------|----|------|
-|id|integer|null: false, add_index :messages, :id|
 |body|text|null: false|
 |image|string|null: false, add_index :messages, :image|
 ### Association
