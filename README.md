@@ -34,3 +34,8 @@
 |------|----|------|
 |body|text|validates :body_or_image, presence: true|
 |image|string|validates :body_or_image, presence: true, add_index :messages, :image|
+|user|references|null: false, foreign_key: true|
+|group|references|null: false, foreign_key: true|
+### Association
+- belongs_to :group
+- belongs_to :user
