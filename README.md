@@ -4,6 +4,7 @@
 |------|----|------|
 |name|string|null:false, add_index :users, :name|
 |mail|string|unique not null|
+|password|string|null:false|
 ### Association
 - has_many :groups, through: :members
 - has_many :messages
@@ -12,7 +13,7 @@
 ## groupsテーブル
 |Column|Type|Option|
 |------|----|------|
-|group_name|text|null:false, add_index :groups, :group_name|
+|name|text|null:false, add_index :groups, :group_name|
 ### Association
 - has_many :users, through: :members
 - has_many :messages
@@ -21,8 +22,8 @@
 ## membersテーブル
 |Column|Type|Option|
 |------|----|------|
-|user_id|integer|null: false, foreign_key: true|
-|group_id|integer|null: false, foreign_key: true|
+|user_id|references|null: false, foreign_key: true|
+|group_id|references|null: false, foreign_key: true|
 ### Association
 - belongs_to :group
 - belongs_to :user
