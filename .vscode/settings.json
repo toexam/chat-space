@@ -1,0 +1,10 @@
+{
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "editor.wordWrap": "on",
+    "editor.formatOnSave": true,
+    "html.format.endWithNewline": true,
+    "files.autoSave": "onFocusChange",
+    "editor.tabSize": 2,
+    "editor.renderWhitespace": "all"
+}
