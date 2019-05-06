@@ -1,4 +1,4 @@
-class UserController < ApplicationController
+class UsersController < ApplicationController
   def index
   end
 
@@ -11,6 +11,7 @@ class UserController < ApplicationController
     else
       render :edit
     end
+  end
 
     private
 
