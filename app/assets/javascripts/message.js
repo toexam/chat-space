@@ -54,28 +54,27 @@ $(function () {
 
   $('#new_message').on('submit', function (e) {
     e.preventDefault();
-    var formData = new FormData(this);
-    var url = $(this).attr('action')
-    $.ajax({
-      url: url,
-      type: "POST",
+    type: "POST",
       data: formData,
-      dataType: 'json',
-      processData: false,
-      contentType: false,
+        dataType: 'json',
+          processData: false,
+            contentType: false,
+              dataType: 'json',
+                processData: false,
+                  contentType: false,
     })
-      .done(function (data) {
-        var html = buildHTML(data);
-        $('.messageslists').append(html);
-        $('.form__message').val('');
-        $('.hidden').val('');
-        $('.form__submit').prop('disabled', false);
-        $('.messageslists').animate({ scrollTop: $('.messageslists')[0].scrollHeight }, 'fast');
-        leastMessage = data;
-      })
-      .fail(function () {
-        alert('error');
-        $('.form__submit').prop('disabled', false);
-      })
-  })
+    .done(function (data) {
+      var html = buildHTML(data);
+      $('.messageslists').append(html);
+      $('.form__message').val('');
+      $('.hidden').val('');
+      $('.form__submit').prop('disabled', false);
+      $('.messageslists').animate({ scrollTop: $('.messageslists')[0].scrollHeight }, 'fast');
+      leastMessage = data;
+    })
+    .fail(function () {
+      alert('error');
+      $('.form__submit').prop('disabled', false);
+    })
+})
 });
