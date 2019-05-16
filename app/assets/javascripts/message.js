@@ -3,7 +3,7 @@ $(function () {
   var leastMessage = window.leastMessage;
 
   function buildHTML(message) {
-    var html_common = `<div class= "messagelist" data-message-id="${message.id}">
+    var html_common = `<div class= "chat" data-message-id="${message.id}">
                         <div class= "messagelist__create">
                           <div class= "messagelist__name">
                             ${message.user_name}
@@ -33,7 +33,15 @@ $(function () {
       $.ajax({
         type: 'GET',
         url: window.location.pathname,
-        data: { leastMessage: leastMessage },
+        data: {
+          _leastMessage: leastMessage,
+          get leastMessage() {
+            return this._leastMessage;
+          },
+          set leastMessage(value) {
+            this._leastMessage = value;
+          },
+        },
         dataType: 'json'
       })
         .done(function (data) {
@@ -42,7 +50,7 @@ $(function () {
             insertHTML += buildHTML(message);
             leastMessage = message;
           });
-          $('.messageslists').append(insertHTML);
+          $('.messages').append(insertHTML);
         })
         .fail(function (json) {
           alert('自動更新に失敗しました');
@@ -50,31 +58,34 @@ $(function () {
     } else {
       clearInterval(interval);
     }
-  }, 5000);
+  }, 10000);
 
   $('#new_message').on('submit', function (e) {
     e.preventDefault();
-    type: "POST",
+    var formData = new FormData(this);
+    var url = $(this).attr('action')
+    $.ajax({
+      type: "POST",
       data: formData,
-        dataType: 'json',
-          processData: false,
-            contentType: false,
-              dataType: 'json',
-                processData: false,
-                  contentType: false,
+      dataType: 'json',
+      processData: false,
+      contentType: false,
+      dataType: 'json',
+      processData: false,
+      contentType: false,
     })
-    .done(function (data) {
-      var html = buildHTML(data);
-      $('.messageslists').append(html);
-      $('.form__message').val('');
-      $('.hidden').val('');
-      $('.form__submit').prop('disabled', false);
-      $('.messageslists').animate({ scrollTop: $('.messageslists')[0].scrollHeight }, 'fast');
-      leastMessage = data;
-    })
-    .fail(function () {
-      alert('error');
-      $('.form__submit').prop('disabled', false);
-    })
-})
+      .done(function (data) {
+        var html = buildHTML(data);
+        $('.messages').append(html);
+        $('.form__message').val('');
+        $('.hidden').val('');
+        $('.form__submit').prop('disabled', false);
+        $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight }, 'fast');
+        leastMessage = data;
+      })
+      .fail(function () {
+        alert('error');
+        $('.form__submit').prop('disabled', false);
+      })
+  })
 });

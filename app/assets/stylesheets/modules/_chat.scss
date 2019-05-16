@@ -43,6 +43,7 @@
     box-sizing: border-box;
     padding: 46px 40px 0;
     height: calc(100vh - 190px);
+    //overflow-x: scroll;
 
     .message {
       .upper-message {
@@ -64,10 +65,16 @@
       .lower-message {
         margin-top: 10px;
 
-        &__content {
-          color: #434354;
-          font-size: 14px;
-          margin-bottom: 40px;
+        .lower-message__image {
+          height: 500px;
+          width: 380px;
+          object-fit: contain;
+
+          &__content {
+            color: #434354;
+            font-size: 14px;
+            margin-bottom: 40px;
+          }
         }
       }
     }
