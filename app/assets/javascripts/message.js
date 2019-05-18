@@ -1,75 +1,28 @@
 $(function () {
 
-  var leastMessage = window.leastMessage;
-
   function buildHTML(message) {
-    var html_common = `<div class= "chat" data-message-id="${message.id}">
-                        <div class= "messagelist__create">
-                          <div class= "messagelist__name">
-                            ${message.user_name}
-                          </div>
-                          <div class= "messagelist__post_date">
-                            ${message.created_at}
-                          </div>
-                        </div>
-                        <div class= "messagelist__comment">
-                          <p class="lower-message__content">
-                            ${message.content}
-                          </p>`
-    if (message.image.url === null) {
-      var html = html_common + `</div>
-                </div>`
-      return html;
-    } else {
-      var html = html_common + `<img class= "lower-message__image", src= ${message.image.url}>
-                  </div>
-                </div>`
-      return html;
-    }
+    var imagehtml = message.image == null ? "" : `<img src="${messge.image}" class="lower-message__image">}`
+    var html = `<div class="messages>
+                    <div class="upper-message>
+                      <div class="upper-message__user-name">
+                      ${message.user_name}
+                      </div>
+                      <div class="upper-message"
+                        <p class="lower-message__content">
+                        ${message.content}
+                      </div>
+                    </div>`
+    return html;
+    //htmlという変数
   }
-
-  var interval = setInterval(function () {
-    if (window.location.href.match(/\/groups\/\d+\/messages/)) {
-      $.ajax({
-        type: 'GET',
-        url: window.location.pathname,
-        data: {
-          _leastMessage: leastMessage,
-          get leastMessage() {
-            return this._leastMessage;
-          },
-          set leastMessage(value) {
-            this._leastMessage = value;
-          },
-        },
-        dataType: 'json'
-      })
-        .done(function (data) {
-          var insertHTML = '';
-          data.forEach(function (message) {
-            insertHTML += buildHTML(message);
-            leastMessage = message;
-          });
-          $('.messages').append(insertHTML);
-        })
-        .fail(function (json) {
-          alert('自動更新に失敗しました');
-        });
-    } else {
-      clearInterval(interval);
-    }
-  }, 10000);
-
   $('#new_message').on('submit', function (e) {
     e.preventDefault();
     var formData = new FormData(this);
-    var url = $(this).attr('action')
+    var href = window.location.href
     $.ajax({
+      url: href,
       type: "POST",
       data: formData,
-      dataType: 'json',
-      processData: false,
-      contentType: false,
       dataType: 'json',
       processData: false,
       contentType: false,
@@ -77,15 +30,14 @@ $(function () {
       .done(function (data) {
         var html = buildHTML(data);
         $('.messages').append(html);
-        $('.form__message').val('');
+        $('.form__submit').val('');
         $('.hidden').val('');
-        $('.form__submit').prop('disabled', false);
+        $(".form__submit").prop('disabled', false);
         $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight }, 'fast');
         leastMessage = data;
       })
       .fail(function () {
         alert('error');
-        $('.form__submit').prop('disabled', false);
       })
   })
 });
