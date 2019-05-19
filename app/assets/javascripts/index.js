@@ -39,8 +39,6 @@ $(function () {
 
   });
 
-
-
   function clickHTML(user) {
     var userId = user.attr("data-user-id");
     //Jqueryのattrメソッドの結果をuerIdに代入
@@ -52,9 +50,9 @@ $(function () {
     return html;
   };
 
-
   //attrメソッドによって引数に指定した属性の値を取得することができる
   //HTML5ではdata-*="value"の形式で属性名にプライベートな値を設定できるカスタムデータ属性の仕様と、そのカスタムデータ属性にJavaScriptからアクセスするAPIが定義された
+
   $(document).on("click", ".user-search-add", function () {
     //追加ボタンが押された時
     $input = $(this);
@@ -63,7 +61,7 @@ $(function () {
     var add_user_html = clickHTML($input);
     $("#search-users").append(add_user_html);
     //#search-usersの下にhtmlを追加
-    // console.log($input.parent())
+    //console.log($input.parent())
     $input.parent()[0].remove();
     //ここでremoveすることでチャットメンバーを追加のところから追加したuserを消す
     //parentメソッド→引数を省略すると親要素すべてを選択する 省略しなければ引数に指定した親要素のセレクタを選択する
@@ -76,7 +74,6 @@ $(function () {
     //ここのthisはuser-search-removeというclass属性が書いてある要素を取得してる
     $input.parent().remove();
     //ここでparentメソッドでその要素の親要素であるchat-group-userごとremoveする
-
   });
 
 
@@ -102,10 +99,9 @@ $(function () {
                 `
     return html;
   };
-
-
   //↑ここreturnしなかったらvar html = addNewMessagesHTML(message);のhtmlになんも格納されなかったから
   //return html;は絶対必要 returnしないとただhtmlに格納しだだけでaddNewMessagesHTMLはなんも持っていないことになる
+
   if (window.location.href.match(/\/groups\/\d+\/messages/)) {
     setInterval(autoUpdate, 5000)
   };
