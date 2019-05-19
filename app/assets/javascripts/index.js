@@ -19,13 +19,14 @@ $(function () {
       type: 'GET',
       url: '/users',
       data: { keyword: input },
-      dataType: 'json'
+      dataType: 'json',
     })
 
-      .done(function (users) {
+      .done(function (data) {
+        //        console.log(data)
         $(".user-search-result").empty();
-        if (users.length !== 0) {
-          users.forEach(function (user) {
+        if (data.length !== 0) {
+          data.forEach(function (user) {
             var html = appendUser(user);
             $(".user-search-result").append(html);
           });
@@ -50,6 +51,8 @@ $(function () {
                </div>`
     return html;
   };
+
+
   //attrメソッドによって引数に指定した属性の値を取得することができる
   //HTML5ではdata-*="value"の形式で属性名にプライベートな値を設定できるカスタムデータ属性の仕様と、そのカスタムデータ属性にJavaScriptからアクセスするAPIが定義された
   $(document).on("click", ".user-search-add", function () {
@@ -69,13 +72,13 @@ $(function () {
   });
 
   $(document).on("click", ".user-search-remove", function () {
-
     $input = $(this);
     //ここのthisはuser-search-removeというclass属性が書いてある要素を取得してる
     $input.parent().remove();
     //ここでparentメソッドでその要素の親要素であるchat-group-userごとremoveする
 
   });
+
 
   function addNewMessagesHTML(comment) {
     var imagehtml = comment.image == null ? "" : `<img src="${comment.image}" class="lower-message__image">`
@@ -99,34 +102,11 @@ $(function () {
                 `
     return html;
   };
+
+
   //↑ここreturnしなかったらvar html = addNewMessagesHTML(message);のhtmlになんも格納されなかったから
   //return html;は絶対必要 returnしないとただhtmlに格納しだだけでaddNewMessagesHTMLはなんも持っていないことになる
   if (window.location.href.match(/\/groups\/\d+\/messages/)) {
     setInterval(autoUpdate, 5000)
   };
-
-  function autoUpdate() {
-    var href = window.location.href;
-    var lastId = $('.message').last().attr('data-messageid');
-
-    $.ajax({
-      url: href,
-      dataType: 'json',
-      type: 'GET',
-    })
-
-      .done(function (data) {
-        data.messages.forEach(function (message) {
-          if (message.id > lastId) {
-            var html = addNewMessagesHTML(message);
-            $('.messages').append(html);
-            $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight }, 'fast');
-          };
-        });
-      })
-      .fail(function () {
-        alert('メッセージの取得に失敗しました');
-      });
-  };
-
 });
