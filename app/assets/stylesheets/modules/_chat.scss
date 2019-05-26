@@ -30,14 +30,16 @@
 
     .right-header {
       border: 1px solid $light_blue;
+      color: $light_blue;
       float: right;
       height: 40px;
       line-height: 40px;
       margin-top: 28px;
-      padding: 0 20px;
+      padding: 0 17px;
 
       &__button {
         color: $light_blue;
+        display: inline-block;
         text-decoration: none;
       }
     }
@@ -90,6 +92,7 @@
     box-sizing: border-box;
     height: 90px;
     padding: 20px 50px 20px 40px;
+    position: relative;
 
     &__message {
       border: none;
@@ -97,13 +100,16 @@
       float: left;
       height: 50px;
       width: calc(100% - 150px);
+      text-align: left;
+      padding-left: 10px;
     }
 
     &__mask {
-      background-color: $white;
-      float: left;
-      height: 50px;
+      float: ri;
       padding-right: 10px;
+      position: absolute;
+      top: 22px;
+      right: 200px;
 
       &__image {
         font-size: 20px;
