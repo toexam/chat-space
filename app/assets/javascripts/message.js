@@ -1,6 +1,8 @@
+//$(document).on('turbolinks:load', function () {
 $(function () {
   function buildHTML(message) {
     var addImage = '';
+    console.log(message.image.url)
     if (message.image.url) {
       addImage = `<img src="${message.image.url}" class="lower-message__image">`;
     }
@@ -48,9 +50,10 @@ $(function () {
       })
     return false;
   })
+  setInterval(reloadMessages, 5000);
 
 
-
+  //自動更新
   var reloadMessages = function () {
     var last_message_id = $('.message').last().attr("data-messageId");
     var groupId = $('.message').last().attr("data-groupId");
@@ -69,7 +72,6 @@ $(function () {
       })
       .fail(function () {
         console.log('error');
-      });
+      });//fail end
   }
-  setInterval(reloadMessages, 5000);
 });
