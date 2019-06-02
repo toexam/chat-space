@@ -20,17 +20,75 @@
         = link_to 'Edit', edit_group_path(@group.id), class: 'right-header__button'
 
     .messages
-      = render @messages
+      = render partial: 'message', collection: @messages, as: :message
+      #add-auto-update-message
 
     .form
-      = form_for [@group, @message] do |f|
+      = form_for [@group, @message], html: {id: 'info'} do |f|
         .input-box
-        = f.text_field :content, class: 'form__message', id: 'new_message', placeholder: '  type a message'
-
-        .form__mask
-          = f.label :image, class: 'form__mask__image' do
-            = fa_icon 'picture-o', class: 'icon'
-            = f.file_field :image, class: 'hidden'
+          = f.text_field :content, class: 'form__message', placeholder: 'type a message'
+          .form__mask
+            = f.label :image, class: 'form__mask__image' do
+              = fa_icon 'image', class: 'icon'
+              = f.file_field :image, class: 'hidden'
         = f.submit 'Send', class: 'form__submit'
+
+
+
+:javascript
+        $(function () {
+
+          var buildAutoUpdateMessage = function (message) {
+            var messageText = message.text ? message.text : ('');
+            var messageImage = message.image.url ? message.image.url : ('');
+            var html = `<div class="message messages" data-id="${message.id}">
+                                         <div class="upper-info">
+                                           <div class= "upper-info__user">
+                                            <p>${ message.user_name}</p>
+                                          </div>
+                                          <div class="upper-info__date">
+                                            <p>${message.date}</p>
+                                           </div>
+
+                                          <div class="lower-message">
+                                          <div class="lower-message__text">
+                                              <p>${messageText}</p>
+                                              <img src="${messageImage}", class="lower-message__image">
+                                          </div>
+                                        </div>
+                                      </div>`;
+            return html;
+          };
+          setInterval(update, 5000);
+
+
+          function update() {
+            var last_message_id = $('.messages:last').data('id');
+            var href = 'api/messages'
+
+            $.ajax({
+              url: href,
+              type: 'GET',
+              data: { id: last_message_id },
+              dataType: 'json'
+            })//ajax条件の定義 end
+
+              .done(function (messages) {
+                messages.forEach(function (message) {
+                  console.log(message)
+
+                  var insertHTML = buildAutoUpdateMessage(message)
+                  $('.messages').append(insertHTML)
+                });
+
+                $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight }, 'fast');
+              }) //.done end
+
+              .fail(function () {
+                alert('error');
+              }); // fail end
+
+          }; //update関数end
+        }); //自動更新機能end
 
 
