@@ -5,7 +5,7 @@ class GroupsController < ApplicationController
 
   def new
     @group = Group.new
-    @group.users << current_user
+    @group.users << current_user#現在ログイン中のユーザーを新規作成したグループに追加,current-userを除く
   end
 
   def create

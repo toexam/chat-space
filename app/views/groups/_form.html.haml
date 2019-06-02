@@ -1,3 +1,4 @@
+
 = form_for group do |f|
   - if group.errors.any?
     .chat-group-form__errors
@@ -45,9 +46,8 @@
             .user-search-remove.chat-group-user__btn.chat-group-user__btn--remove.js-remove-btn 削除
 
         #chat-group-users
-
-
   .chat-group-form__field.clearfix
     .chat-group-form__field--left
     .chat-group-form__field--right
       = f.submit class: 'chat-group-form__action-btn'
+
