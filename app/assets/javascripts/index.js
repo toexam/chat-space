@@ -14,8 +14,8 @@ $(function () {
   };
 
   function appendErrMsg(msg) {
-    var html = `<li style="list-style: none;"><br>
-                  <div class='listview__element--right-icon'><br><br>${msg}</div>
+    var html = `<br><li style="list-style: none;">
+                  <div class='listview__element--right-icon'>${msg}<br></div>
                 </li>`
     search_list.append(html);
   };
@@ -23,7 +23,7 @@ $(function () {
   var group_member_list = $("#chat-group-users");
 
   function appendUserToAddList(userId, userName) {
-    var html = `<div class='chat-group-user clearfix js-chat-member' id='chat-group-user-'>
+    var html = `<div class='chat-group-user clearfix js-chat-member' id='chat-group-user-14'>
                   <input name='group[user_ids][]' type='hidden' value='${userId}'>
                     <p class='chat-group-user__name'>${userName}</p>
                   <div class='user-search-remove chat-group-user__btn chat-group-user__btn--remove js-remove-btn'>削除</div>
@@ -43,7 +43,7 @@ $(function () {
       dataType: 'json'
     })
       .done(function (users) {
-        $('#user-search-result').empty();//こうしないと表示が繰り返されるから毎回消してる
+        $('#user-search-result').empty();//こうしないと表示が繰り返されるから毎回表示を消去
 
         if (users.length !== 0) {// もしもユーザーが誰かいる時は
           if (input.length !== 0) {//もしも何か入力がある時は
@@ -60,7 +60,7 @@ $(function () {
             //            appendErrMsg(msg);
           }; // Deleteキー等でフォームの入力値を消した時「一致するユーザーがいません」を表示させないようにする
 
-        } else {
+        } else {//ユーザーが誰もいない時
           //          $('#user-search-result').empty();
           var msg = "一致するユーザーはいません";
           appendErrMsg(msg);
