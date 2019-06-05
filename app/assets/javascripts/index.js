@@ -45,23 +45,14 @@ $(function () {
       .done(function (users) {
         $('#user-search-result').empty();//こうしないと表示が繰り返されるから毎回表示を消去
 
-        if (users.length !== 0) {// もしもユーザーが誰かいる時は
-          if (input.length !== 0) {//もしも何か入力がある時は
+        if (users.length !== 0 && input.length !== 0) {// もしもユーザーが誰かいる時は
+          users.forEach(function (user) {
+            if (user.name.match(reg)) {
+              $(appendUser(user));
+            };
+          });
 
-            users.forEach(function (user) {
-              if (user.name.match(reg)) {
-                $(appendUser(user));
-              };
-            });
-
-          } else {
-            $('#user-search-result').empty();
-            //            var msg = "やっぱいらない。。";
-            //            appendErrMsg(msg);
-          }; // Deleteキー等でフォームの入力値を消した時「一致するユーザーがいません」を表示させないようにする
-
-        } else {//ユーザーが誰もいない時
-          //          $('#user-search-result').empty();
+        } else {
           var msg = "一致するユーザーはいません";
           appendErrMsg(msg);
         };
