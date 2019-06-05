@@ -1,63 +1,79 @@
-// $(window).on('load', function () {
+$(function () {
+  $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight }, 'fast');
+  function buildHTML(message) {
+    var addImage = '';
+    if (message.image.url) {
+      addImage = `<img src="${message.image.url}" class="lower-message__image">`;
+    }
+    var html = `<div class="message" data-messageId="${message.id}" data-groupId="${message.group_id}">
+        <div class="upper-message" data-messageId="${message.id}">
+          <div class="upper-message__user-name">${message.name}</div>
+          <div class="upper-message__date">${message.date}</div>
+        </div>
+        <div class="lower-message">
+          <p class="lower-message__content">
+             ${message.content}
+           </p>
+           ${addImage}
+         </div>
+       </div>`;
+    return html;
+  }
 
-//   if (path == "_message.html.haml") {
-//     // ドメイン以下のパス名が /messages/_message.html.haml の場合に実行する内容
+  $('.new_message').on('submit', function (e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    var url = $(this).attr('action');
 
-//     //    : javascript
-//     $(function () {
-//       $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight }, 'fast');
-//       var buildAutoUpdateMessage = function (message) {
-//         var messageText = message.text ? message.text : ('');
-//         var messageImage = message.image.url ? message.image.url : ('');
-//         var html = `<div class="message messages" data-id="${message.id}">
-//                                          <div class="upper-info">
-//                                            <div class= "upper-info__user">
-//                                             <p>${ message.user_name}</p>
-//                                           </div>
-//                                           <div class="upper-info__date">
-//                                             <p>${message.date}</p>
-//                                            </div>
+    $.ajax({
+      url: url,
+      type: 'POST',
+      data: formData,
+      dataType: 'json',
+      processData: false,
+      contentType: false
 
-//                                           <div class="lower-message">
-//                                           <div class="lower-message__text">
-//                                               <p>${messageText}</p>
-//                                               <img src="${messageImage}", class="lower-message__image">
-//                                           </div>
-//                                         </div>
-//                                       </div>`;
-//         return html;
-//       };
-//       setInterval(update, 5000);
+    })
+
+      .done(function (message) {
+        var html = buildHTML(message)
 
 
-//       function update() {
-//         var last_message_id = $('.messages:last').data('id');
-//         var href = 'api/messages'
+        $('.messages').append(html)
+        $('.form__message').val('');
 
-//         $.ajax({
-//           url: href,
-//           type: 'GET',
-//           data: { id: last_message_id },
-//           dataType: 'json'
-//         })
 
-//           .done(function (messages) {
-//             messages.forEach(function (message) {
+        $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight }, 'fast');
+        $('.new_message')[0].reset();
+      })
+      .fail(function (message) {
+        alert('メッセージが未入力です');
+      })
+    return false;
+  })
 
-//               var insertHTML = buildAutoUpdateMessage(message)
-//               $('.messages').append(insertHTML)
-//             });
+  var reloadMessages = function () {
+    var last_message_id = $('.message').last().attr("data-messageId");
+    var groupId = $('.message').last().attr("data-groupId");
 
-//             $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight }, 'fast');
-//           })
+    $.ajax({
+      url: 'api/messages',
+      type: 'get',
+      data: { id: last_message_id },
+      dataType: 'json'
+    })
 
-//           .fail(function () {
-//             alert('error');
-//           });
+      .done(function (data) {
+        $.each(data, function (i, message) {
+          var insertHTML = buildHTML(message);
+          $('.messages').append(insertHTML);
+          $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight }, "fast");
 
-//       };
-//     });
-
-//   }
-
-// });
+        })
+      })
+      .fail(function () {
+        console.log('error');
+      });
+  }
+  setInterval(reloadMessages, 5000);
+});
