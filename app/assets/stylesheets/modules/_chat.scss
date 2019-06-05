@@ -92,7 +92,18 @@
     box-sizing: border-box;
     height: 90px;
     padding: 20px 50px 20px 40px;
-    position: relative;
+    /*position: relative;*/
+
+    form#new_message {
+      display: flex;
+
+      .input-box {
+        width: 100%;
+        position: relative;
+        padding-left: 10px;
+      }
+
+    }
 
     &__message {
       border: none;
@@ -108,8 +119,8 @@
       float: right;
       padding-right: 10px;
       position: absolute;
-      top: 22px;
-      right: 200px;
+      top: 2px;
+      right: 150px;
 
       &__image {
         font-size: 20px;
