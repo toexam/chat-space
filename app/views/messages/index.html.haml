@@ -105,8 +105,7 @@
             $.each(data,function(i,message){
               var insertHTML = buildHTML(message);
               $('.messages').append(insertHTML);
-              $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight},"fast");
-
+              $('.message').animate({scrollTop: $('.messages')[0].scrollHeight},"fast");
             })
           })
           .fail(function () {
