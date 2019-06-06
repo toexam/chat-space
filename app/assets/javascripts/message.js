@@ -1,10 +1,13 @@
 $(function () {
-  $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight }, 'fast');
+  $('.message').animate({ scrollTop: $('.message')[0].scrollHeight }, 'fast');
+
   function buildHTML(message) {
+
     var addImage = '';
     if (message.image.url) {
       addImage = `<img src="${message.image.url}" class="lower-message__image">`;
     }
+
     var html = `<div class="message" data-messageId="${message.id}" data-groupId="${message.group_id}">
         <div class="upper-message" data-messageId="${message.id}">
           <div class="upper-message__user-name">${message.name}</div>
@@ -38,11 +41,7 @@ $(function () {
       .done(function (message) {
         var html = buildHTML(message)
 
-
         $('.messages').append(html)
-        $('.form__message').val('');
-
-
         $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight }, 'fast');
         $('.new_message')[0].reset();
       })
@@ -72,8 +71,9 @@ $(function () {
         })
       })
       .fail(function () {
-        console.log('error');
+        alert('error');
       });
+
   }
   setInterval(reloadMessages, 5000);
 });

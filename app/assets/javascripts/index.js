@@ -43,9 +43,9 @@ $(function () {
       dataType: 'json'
     })
       .done(function (users) {
-        $('#user-search-result').empty();//こうしないと表示が繰り返されるから毎回表示を消去
+        $('#user-search-result').empty();//毎回表示を消去
 
-        if (users.length !== 0 && input.length !== 0) {// もしもユーザーが誰かいる時は
+        if (users.length !== 0 && input.length !== 0) {
           users.forEach(function (user) {
             if (user.name.match(reg)) {
               $(appendUser(user));

@@ -39,6 +39,7 @@
   $(function() {
   $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight }, 'fast');
   function buildHTML(message){
+
     var addImage = '';
     if (message.image.url) {
       addImage = `<img src="${message.image.url}" class="lower-message__image">`;
@@ -70,7 +71,6 @@
           dataType: 'json',
           processData: false,
           contentType: false
-
         })
 
           .done(function (message) {
@@ -78,9 +78,6 @@
 
 
             $('.messages').append(html)
-            $('.form__message').val('');
-
-
             $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight }, 'fast');
             $('.new_message')[0].reset();
           })
@@ -103,16 +100,18 @@
 
           .done(function(data){
             $.each(data,function(i,message){
+              console.log(data)
               var insertHTML = buildHTML(message);
               $('.messages').append(insertHTML);
-              $('.message').animate({scrollTop: $('.messages')[0].scrollHeight},"fast");
+              $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight},"fast");
             })
           })
           .fail(function () {
-            console.log('error');
+            alert('error');
           });
         }
           setInterval(reloadMessages, 5000);
+
     });
 
 
