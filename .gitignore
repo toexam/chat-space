@@ -18,3 +18,4 @@
 
 #image not be committed
 public/uploads/*
+config/secrets.yml
