@@ -70,7 +70,7 @@ gem 'erb2haml'
 gem "font-awesome-rails"
 gem 'devise'
 gem 'carrierwave'
-gem 'mini_magick'
+gem 'mini_magick', '~> 4.9.4'
 gem 'fog-aws'
 
 
